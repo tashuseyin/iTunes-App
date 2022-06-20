@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">iTunes App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="search">Search</string>
+    <string name="media_type">Media Type</string>
+    <string name="movie">Movie</string>
+    <string name="podcast">Podcast</string>
+    <string name="music">Music</string>
+    <string name="musicvideo">MusicVideo</string>
+    <string name="audiobook">AudioBook</string>
+    <string name="shortfilm">ShortFilm</string>
+    <string name="tvshow">TvShow</string>
+    <string name="software">Software</string>
+    <string name="ebook">EBook</string>
+    <string name="all">All</string>
+    <string name="apply">Apply</string>
+</resources>
