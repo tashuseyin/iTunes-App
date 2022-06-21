@@ -8,7 +8,7 @@
     tools:context=".presentation.search.bottomsheet.BottomSheetFragment">
 
     <TextView
-        android:id="@+id/meal_type_text"
+        android:id="@+id/media_type_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -30,7 +30,7 @@
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meal_type_text">
+        app:layout_constraintTop_toBottomOf="@+id/media_type_text">
 
         <LinearLayout
             android:layout_width="wrap_content"

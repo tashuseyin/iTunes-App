@@ -1,46 +1,66 @@
 package com.tashuseyin.itunesapp.presentation.search
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.tashuseyin.itunesapp.common.Constant
-import com.tashuseyin.itunesapp.domain.model.SearchItem
+import com.tashuseyin.itunesapp.data.data_store.DataStoreRepository
+import com.tashuseyin.itunesapp.data.toDomain
 import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
+import com.tashuseyin.itunesapp.presentation.search.state.SearchState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
+    private val dataStoreRepository: DataStoreRepository,
     private val repository: ITunesRepository
 ) : ViewModel() {
 
-    private var job: Job? = null
-    private val _searchList = MutableLiveData<PagingData<SearchItem>>(PagingData.empty())
-    val searchList = _searchList
+    private val _state: MutableStateFlow<SearchState> = MutableStateFlow(SearchState())
+    val state: StateFlow<SearchState> = _state
 
-    fun searchMovies(query: String) {
-        job?.cancel()
-        job = viewModelScope.launch {
-            repository.getSearchApi(queries = applyQueries(query)).cachedIn(viewModelScope)
-                .distinctUntilChanged()
-                .collectLatest {
-                    _searchList.value = it
-                }
+    fun getSearchApi(query: String) {
+        viewModelScope.launch {
+            _state.value = SearchState(isLoading = true)
+            try {
+                val response =
+                    repository.getSearchApi(applyQueries(query)).results?.map { it.toDomain() }
+                _state.value = SearchState(searchList = response ?: emptyList())
+            } catch (e: Exception) {
+                _state.value = SearchState(error = e.localizedMessage ?: "An unexpected error.")
+            }
         }
     }
 
-    fun applyQueries(query: String): HashMap<String, String> {
+
+    private fun applyQueries(query: String): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
-        queries[Constant.QUERY_MEDIA_TYPE] = Constant.DEFAULT_MEDIA_TYPE
+        viewModelScope.launch {
+            readSelectMediaType.collect {
+                queries[Constant.QUERY_MEDIA_TYPE] = it.mediaType
+            }
+        }
         queries[Constant.QUERY_SEARCH] = query
         return queries
     }
 
+    val readSelectMediaType = dataStoreRepository.readMediaType
+
+    fun saveSelectMediaType(mediaType: String, mediaTypeId: Int) {
+        viewModelScope.launch {
+            dataStoreRepository.saveMediaType(mediaType, mediaTypeId)
+        }
+    }
+
+    fun saveQuery(query: String) = viewModelScope.launch {
+        dataStoreRepository.saveQuery(query)
+    }
+
+    val readQuery = dataStoreRepository.readQuery.asLiveData()
 }

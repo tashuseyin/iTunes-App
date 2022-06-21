@@ -1,9 +1,7 @@
 package com.tashuseyin.itunesapp.domain.repository
 
-import androidx.paging.PagingData
-import com.tashuseyin.itunesapp.domain.model.SearchItem
-import kotlinx.coroutines.flow.Flow
+import com.tashuseyin.itunesapp.data.remote.dto.ResultDto
 
 interface ITunesRepository {
-    suspend fun getSearchApi(queries: Map<String, String>): Flow<PagingData<SearchItem>>
+    suspend fun getSearchApi(queries: Map<String, String>): ResultDto
 }

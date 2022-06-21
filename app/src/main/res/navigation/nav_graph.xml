@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_searchFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
+        <argument
+            android:name="backBottomSheet"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
