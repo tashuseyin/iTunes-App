@@ -22,8 +22,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener {
     private val searchViewModel: SearchViewModel by viewModels()
-    private val args: SearchFragmentArgs by navArgs()
-    private var querySave: String = ""
+    //private val args: SearchFragmentArgs by navArgs()
     private val adapter = SearchAdapter()
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -34,9 +33,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
 
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
-        searchViewModel.saveQuery(querySave)
         setListener()
-        backBottomSheetRequestApi()
+        //backBottomSheetRequestApi()
     }
 
     private fun setListener() {
@@ -47,19 +45,18 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         }
     }
 
-    private fun backBottomSheetRequestApi() {
-        lifecycleScope.launch {
-            searchViewModel.readQuery.observe(viewLifecycleOwner) { query ->
-                if (query.isNotBlank() && args.backBottomSheet) {
-                    searchViewModel.getSearchApi(query)
-                }
-            }
-        }
-    }
+//    private fun backBottomSheetRequestApi() {
+//        lifecycleScope.launch {
+//            searchViewModel.readQuery.observe(viewLifecycleOwner) { query ->
+//                if (query.isNotBlank() && args.backBottomSheet) {
+//                    searchViewModel.getSearchApi(query)
+//                }
+//            }
+//        }
+//    }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
-            querySave = query
             searchViewModel.getSearchApi(query)
             observeUI()
         }

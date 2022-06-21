@@ -57,10 +57,4 @@ class SearchViewModel @Inject constructor(
             dataStoreRepository.saveMediaType(mediaType, mediaTypeId)
         }
     }
-
-    fun saveQuery(query: String) = viewModelScope.launch {
-        dataStoreRepository.saveQuery(query)
-    }
-
-    val readQuery = dataStoreRepository.readQuery.asLiveData()
 }
