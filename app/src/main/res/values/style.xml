@@ -14,4 +14,8 @@
         <item name="android:textColor">@color/chip_text_color</item>
         <item name="checkedIconTint">@color/chip_text_color</item>
     </style>
+
+    <style name="RoundSquareImage">
+        <item name="cornerSize">10dp</item>
+    </style>
 </resources>
