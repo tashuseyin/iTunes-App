@@ -7,18 +7,13 @@ object Constant {
 
     const val STARTING_PAGE_INDEX = 0
 
-    const val PAGE_SIZE = 10
+    const val PAGE_SIZE = 20
+    const val MAX_SIZE = 100
     const val QUERY_SEARCH = "term"
     const val QUERY_LIMIT = "limit"
     const val QUERY_MEDIA_TYPE = "media"
     const val QUERY_OFFSET = "offset"
 
     const val DEFAULT_MEDIA_TYPE = "all"
-    const val DEFAULT_LIMIT = "50"
-
-
-    const val PREFERENCES_NAME = "itunesPreferences"
-    const val PREFERENCES_MEDIA_TYPE = "mediaType"
-    const val PREFERENCES_MEDIA_TYPE_ID = "mediaId"
-    const val PREFERENCES_QUERY = "mediaId"
+    const val DEFAULT_LIMIT = 20
 }

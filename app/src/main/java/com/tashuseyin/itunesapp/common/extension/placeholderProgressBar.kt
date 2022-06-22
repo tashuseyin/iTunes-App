@@ -6,7 +6,7 @@ import com.tashuseyin.itunesapp.R
 
 fun placeholderProgressBar(context: Context): CircularProgressDrawable {
     return CircularProgressDrawable(context).apply {
-        strokeWidth = 8f
+        strokeWidth = 4f
         centerRadius = 40f
         setColorSchemeColors(R.color.white)
         start()

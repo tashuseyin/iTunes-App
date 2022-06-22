@@ -2,12 +2,12 @@ package com.tashuseyin.itunesapp.presentation.search.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import com.tashuseyin.itunesapp.databinding.SearchItemRowBinding
 import com.tashuseyin.itunesapp.domain.model.SearchItem
 
-class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
-    var searchItemList = emptyList<SearchItem>()
+class SearchAdapter : PagingDataAdapter<SearchItem, SearchViewHolder>(ITunesDifferCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val binding =
@@ -16,12 +16,15 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(searchItemList[position])
+        holder.bind(getItem(position)!!)
     }
+}
 
-    override fun getItemCount() = searchItemList.size
+class ITunesDifferCallback : DiffUtil.ItemCallback<SearchItem>() {
+    override fun areItemsTheSame(oldItem: SearchItem, newItem: SearchItem) =
+        oldItem.trackId == newItem.trackId
 
-    fun setData(newSearchItemList: List<SearchItem>) {
-        this.searchItemList = newSearchItemList
-    }
+    override fun areContentsTheSame(oldItem: SearchItem, newItem: SearchItem) =
+        oldItem == newItem
+
 }

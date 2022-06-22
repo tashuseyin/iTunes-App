@@ -17,4 +17,6 @@
     <string name="all">All</string>
     <string name="apply">Apply</string>
     <string name="image">image</string>
+    <string name="retry">Retry</string>
+    <string name="not_found">The movie you are looking for cannot be found.</string>
 </resources>
