@@ -14,6 +14,7 @@ import com.tashuseyin.itunesapp.R
 import com.tashuseyin.itunesapp.common.extension.hideKeyboard
 import com.tashuseyin.itunesapp.databinding.FragmentSearchBinding
 import com.tashuseyin.itunesapp.presentation.binding_adapter.BindingFragment
+import com.tashuseyin.itunesapp.presentation.search.adapter.MediaTypeAdapter
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchAdapter
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchLoadingStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener {
     private val searchViewModel: SearchViewModel by viewModels()
     private val adapter = SearchAdapter()
+    private val mediaTypeAdapter = MediaTypeAdapter()
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchBinding::inflate
@@ -37,10 +39,35 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initMediaTypeAdapter()
         checkIsSearched()
+        filterSearchRequestApi()
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
     }
+
+    private fun filterSearchRequestApi() {
+        mediaTypeAdapter.onItemClickListener = { mediaType ->
+            searchViewModel.mediaType = mediaType.lowercase()
+            if (searchViewModel.query.isNotBlank()) {
+                requestSearchApi()
+
+            }
+        }
+    }
+
+    private fun initMediaTypeAdapter() {
+        val mediaTypeList = ArrayList<String>()
+        mediaTypeList.add(getString(R.string.all))
+        mediaTypeList.add(getString(R.string.movie))
+        mediaTypeList.add(getString(R.string.podcast))
+        mediaTypeList.add(getString(R.string.music))
+        mediaTypeList.add(getString(R.string.software))
+
+        mediaTypeAdapter.setData(mediaTypeList)
+        binding.recyclerViewFilter.adapter = mediaTypeAdapter
+    }
+
 
     private fun observeUI() {
         binding.recyclerView.adapter = adapter.withLoadStateFooter(
@@ -90,8 +117,9 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
             view?.let { hideKeyboard(view = it) }
+            searchViewModel.query = query
             searchViewModel.isSearched.value = false
-            requestSearch(query)
+            requestSearchApi()
             observeUI()
         }
         return true
@@ -100,9 +128,9 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     override fun onQueryTextChange(p0: String?) = true
 
 
-    private fun requestSearch(query: String) {
+    private fun requestSearchApi() {
         lifecycleScope.launch {
-            searchViewModel.getSearchApi(query)
+            searchViewModel.getSearchApi()
             searchViewModel.searchList.collect {
                 adapter.submitData(it)
                 binding.recyclerView.adapter = adapter

@@ -16,4 +16,8 @@ object Constant {
 
     const val DEFAULT_MEDIA_TYPE = "all"
     const val DEFAULT_LIMIT = 20
+
+    const val PREFERENCES_NAME = "itunesPreferences"
+    const val PREFERENCES_MEDIA_TYPE = "mediaType"
+    const val PREFERENCES_MEDIA_TYPE_ID = "mediaTypeId"
 }

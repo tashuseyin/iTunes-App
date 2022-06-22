@@ -1,8 +1,7 @@
 package com.tashuseyin.itunesapp.presentation.search
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -17,29 +16,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    application: Application,
     private val repository: ITunesRepository
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
     private val _isSearched: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSearched get() = _isSearched
+
+    var query: String = ""
+    var mediaType: String = Constant.DEFAULT_MEDIA_TYPE
+
 
     private val _searchList: MutableStateFlow<PagingData<SearchItem>> =
         MutableStateFlow(PagingData.empty())
     val searchList = _searchList
 
 
-    fun getSearchApi(query: String) {
+    fun getSearchApi() {
         viewModelScope.launch {
-            repository.getSearchApi(applyQueries(query)).cachedIn(viewModelScope).collectLatest {
+            repository.getSearchApi(applyQueries()).cachedIn(viewModelScope).collectLatest {
                 _searchList.value = it
             }
         }
     }
 
-    private fun applyQueries(query: String): HashMap<String, String> {
+    private fun applyQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
-        queries[Constant.QUERY_MEDIA_TYPE] = Constant.DEFAULT_MEDIA_TYPE
+        queries[Constant.QUERY_MEDIA_TYPE] = mediaType
         queries[Constant.QUERY_SEARCH] = query
         return queries
     }
