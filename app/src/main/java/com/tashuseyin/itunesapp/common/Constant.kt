@@ -4,6 +4,7 @@ object Constant {
 
     const val BASE_URL = " https://itunes.apple.com/"
     const val SEARCH_URL = "search"
+    const val DETAIL_URL = "lookup"
 
     const val STARTING_PAGE_INDEX = 0
 
@@ -13,6 +14,7 @@ object Constant {
     const val QUERY_LIMIT = "limit"
     const val QUERY_WRAPPER_TYPE = "entity"
     const val QUERY_OFFSET = "offset"
+    const val QUERY_ID = "id"
 
 
     const val PARAMS_APPLICATION = "software"

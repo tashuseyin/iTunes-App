@@ -1,6 +1,6 @@
 package com.tashuseyin.itunesapp.data.remote.dto
 
-data class SearchResultDto(
+data class BaseResultItemDto(
     val artistId: Int? = 0,
     val artistName: String? = "",
     val artistViewUrl: String? = "",

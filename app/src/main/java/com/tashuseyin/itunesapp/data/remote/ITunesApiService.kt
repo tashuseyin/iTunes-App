@@ -1,7 +1,8 @@
 package com.tashuseyin.itunesapp.data.remote
 
 import com.tashuseyin.itunesapp.common.Constant
-import com.tashuseyin.itunesapp.data.remote.dto.ResultDto
+import com.tashuseyin.itunesapp.data.remote.dto.BaseResultDto
+import com.tashuseyin.itunesapp.data.remote.dto.BaseResultItemDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
@@ -13,6 +14,13 @@ interface ITunesApiService {
         @QueryMap queries: Map<String, String>,
         @Query(Constant.QUERY_LIMIT) pageSize: Int = Constant.DEFAULT_LIMIT,
         @Query(Constant.QUERY_OFFSET) pageNumber: Int
-    ): ResultDto
+    ): BaseResultDto
+
+
+    @GET(Constant.DETAIL_URL)
+    suspend fun getDetailApi(
+        @Query(Constant.QUERY_ID) id: String
+    ): BaseResultDto
+
 
 }

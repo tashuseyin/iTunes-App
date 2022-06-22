@@ -7,6 +7,7 @@ import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.viewbinding.ViewBinding
@@ -39,12 +40,22 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initMediaTypeAdapter()
+        setListener()
+        initWrapperTypeAdapter()
         checkIsSearched()
         filterSearchRequestApi()
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
+    }
+
+    private fun setListener() {
+        adapter.onItemClickListener = {
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToDetailFragment(
+                    it
+                )
+            )
+        }
     }
 
     private fun filterSearchRequestApi() {
@@ -67,7 +78,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         }
     }
 
-    private fun initMediaTypeAdapter() {
+    private fun initWrapperTypeAdapter() {
         val mediaTypeList = ArrayList<String>()
         mediaTypeList.add(getString(R.string.movie))
         mediaTypeList.add(getString(R.string.book))

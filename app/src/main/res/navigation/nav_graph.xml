@@ -13,28 +13,15 @@
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_bottomSheetFragment"
-            app:destination="@id/bottomSheetFragment" />
-        <argument
-            android:name="backBottomSheet"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.tashuseyin.itunesapp.presentation.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
-    <dialog
-        android:id="@+id/bottomSheetFragment"
-        android:name="com.tashuseyin.itunesapp.presentation.search.bottomsheet.BottomSheetFragment"
-        android:label="fragment_bottom_sheet"
-        tools:layout="@layout/fragment_bottom_sheet" >
-        <action
-            android:id="@+id/action_bottomSheetFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:popUpTo="@id/searchFragment"
-            app:popUpToInclusive="true" />
-    </dialog>
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.tashuseyin.itunesapp.common.Constant
+import com.tashuseyin.itunesapp.data.repository.ITunesRepository
 import com.tashuseyin.itunesapp.domain.model.SearchItem
-import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest

@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.tashuseyin.itunesapp.common.Constant
 import com.tashuseyin.itunesapp.data.paging.ITunesPagingSource
 import com.tashuseyin.itunesapp.data.remote.ITunesApiService
+import com.tashuseyin.itunesapp.data.remote.dto.BaseResultDto
 import com.tashuseyin.itunesapp.domain.model.SearchItem
-import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -24,5 +24,9 @@ class ITunesRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { ITunesPagingSource(apiService, queries) }
         ).flow
+    }
+
+    override suspend fun getDetailApi(id: String): BaseResultDto {
+        return apiService.getDetailApi(id)
     }
 }

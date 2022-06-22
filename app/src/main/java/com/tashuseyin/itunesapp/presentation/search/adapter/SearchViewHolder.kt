@@ -9,28 +9,26 @@ import com.tashuseyin.itunesapp.domain.model.SearchItem
 class SearchViewHolder(private val binding: SearchItemRowBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(searchItem: SearchItem) {
+    fun bind(searchItem: SearchItem, onItemClickListener: ((String) -> Unit)? = null) {
         binding.apply {
             searchItemImage.loadImageView(
                 searchItem.artworkUrl100,
                 placeholderProgressBar(searchItemImage.context)
             )
-            searchItemTitle.text = searchItem.trackName
-            searchItemPrice.text = when {
-                searchItem.collectionPrice.toString()
-                    .isNotEmpty() -> searchItem.collectionPrice.toString()
-                searchItem.trackPrice.toString().isNotEmpty() -> searchItem.trackPrice.toString()
-                searchItem.trackRentalPrice.toString()
-                    .isNotEmpty() -> searchItem.trackRentalPrice.toString()
-                searchItem.trackHdRentalPrice.toString()
-                    .isNotEmpty() -> searchItem.trackHdRentalPrice.toString()
-                searchItem.collectionHdPrice.toString()
-                    .isNotEmpty() -> searchItem.collectionHdPrice.toString()
-                searchItem.trackHdPrice.toString()
-                    .isNotEmpty() -> searchItem.trackHdPrice.toString()
-                else -> "Price Not Found"
+            if (searchItem.trackName!!.isNotBlank()) {
+                searchItemTitle.text = searchItem.trackName
+            } else {
+                searchItemTitle.text = searchItem.collectionName
             }
-            searchItemDate.text = searchItem.releaseDate
+
+            searchItemWrapperType.text = searchItem.wrapperType
+
+
+            searchItemConstraint.setOnClickListener {
+                val id = searchItem.trackId ?: searchItem.collectionId
+                onItemClickListener?.invoke(id.toString())
+            }
         }
+
     }
 }

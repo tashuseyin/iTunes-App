@@ -1,9 +1,9 @@
 package com.tashuseyin.itunesapp.data
 
-import com.tashuseyin.itunesapp.data.remote.dto.SearchResultDto
+import com.tashuseyin.itunesapp.data.remote.dto.BaseResultItemDto
 import com.tashuseyin.itunesapp.domain.model.SearchItem
 
-fun SearchResultDto.toDomain(): SearchItem {
+fun BaseResultItemDto.toDomain(): SearchItem {
     return SearchItem(
         artistId = artistId,
         artistName = artistName,

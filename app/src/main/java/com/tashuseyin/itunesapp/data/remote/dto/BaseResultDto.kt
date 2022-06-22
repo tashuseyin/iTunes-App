@@ -1,6 +1,6 @@
 package com.tashuseyin.itunesapp.data.remote.dto
 
-data class ResultDto(
+data class BaseResultDto(
     val resultCount: Int? = 0,
-    val results: List<SearchResultDto>? = listOf()
+    val results: List<BaseResultItemDto>? = listOf()
 )

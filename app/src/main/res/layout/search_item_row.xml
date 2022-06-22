@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:id="@+id/search_item_constraint"
+    android:layout_height="270dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
     android:background="@drawable/search_bg"
@@ -36,37 +37,20 @@
         app:layout_constraintTop_toBottomOf="@+id/search_item_image" />
 
     <TextView
-        android:id="@+id/search_item_date"
+        android:id="@+id/search_item_wrapper_Type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
-        tools:text="2022-10-22"
+        android:layout_marginBottom="24dp"
         android:fontFamily="sans-serif"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/search_item_title"
         app:layout_constraintStart_toStartOf="@+id/search_item_title"
-        app:layout_constraintTop_toBottomOf="@+id/search_item_title" />
-
-    <TextView
-        android:id="@+id/search_item_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/search_item_date"
-        app:layout_constraintStart_toStartOf="@+id/search_item_date"
-        app:layout_constraintTop_toBottomOf="@+id/search_item_date"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="100 USD" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/search_item_title"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="Track" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
