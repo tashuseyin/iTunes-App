@@ -23,7 +23,7 @@ class SearchViewModel @Inject constructor(
     val isSearched get() = _isSearched
 
     var query: String = ""
-    var mediaType: String = Constant.DEFAULT_MEDIA_TYPE
+    var wrapperType: String = Constant.DEFAULT_WRAPPER_TYPE
 
 
     private val _searchList: MutableStateFlow<PagingData<SearchItem>> =
@@ -41,7 +41,7 @@ class SearchViewModel @Inject constructor(
 
     private fun applyQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
-        queries[Constant.QUERY_MEDIA_TYPE] = mediaType
+        queries[Constant.QUERY_WRAPPER_TYPE] = wrapperType
         queries[Constant.QUERY_SEARCH] = query
         return queries
     }

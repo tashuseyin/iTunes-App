@@ -4,18 +4,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="search">Search</string>
-    <string name="media_type">Media Type</string>
-    <string name="movie">Movie</string>
-    <string name="podcast">Podcast</string>
     <string name="music">Music</string>
-    <string name="musicvideo">MusicVideo</string>
-    <string name="audiobook">AudioBook</string>
-    <string name="shortfilm">ShortFilm</string>
-    <string name="software">Software</string>
-    <string name="ebook">EBook</string>
-    <string name="all">All</string>
+    <string name="movie">Movie</string>
+    <string name="book">AudioBook</string>
+    <string name="application">Application</string>
     <string name="apply">Apply</string>
     <string name="image">image</string>
     <string name="retry">Retry</string>
-    <string name="not_found">The movie you are looking for cannot be found.</string>
+    <string name="not_found">The %1$s you are looking for cannot be found.</string>
+    <string name="search_message">Please enter the %1$s you want to search.</string>
 </resources>

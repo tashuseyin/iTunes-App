@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tashuseyin.itunesapp.R
 import com.tashuseyin.itunesapp.databinding.ItemFilterBinding
 
-class MediaTypeAdapter : RecyclerView.Adapter<MediaTypeAdapter.MediaTypeViewHolder>() {
+class WrapperTypeAdapter : RecyclerView.Adapter<WrapperTypeAdapter.WrapperTypeViewHolder>() {
     private var mediaTypeList: List<String> = emptyList()
     var onItemClickListener: ((String) -> Unit)? = null
     private var defaultMediaTypeId = 0
 
-    inner class MediaTypeViewHolder(private val binding: ItemFilterBinding) :
+    inner class WrapperTypeViewHolder(private val binding: ItemFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(mediaType: String, onItemClickListener: ((String) -> Unit)?) {
@@ -56,13 +56,13 @@ class MediaTypeAdapter : RecyclerView.Adapter<MediaTypeAdapter.MediaTypeViewHold
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MediaTypeViewHolder {
+    ): WrapperTypeViewHolder {
         val binding =
             ItemFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MediaTypeViewHolder(binding)
+        return WrapperTypeViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MediaTypeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: WrapperTypeViewHolder, position: Int) {
         holder.bind(mediaTypeList[position], onItemClickListener)
     }
 

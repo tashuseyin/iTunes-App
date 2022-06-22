@@ -9,7 +9,7 @@
         <item name="android:editTextColor">@color/black</item>
     </style>
 
-    <style name="RoundSquareImage">x
+    <style name="RoundSquareImage">
         <item name="cornerSize">10dp</item>
     </style>
 </resources>

@@ -11,12 +11,13 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.viewbinding.ViewBinding
 import com.tashuseyin.itunesapp.R
+import com.tashuseyin.itunesapp.common.Constant
 import com.tashuseyin.itunesapp.common.extension.hideKeyboard
 import com.tashuseyin.itunesapp.databinding.FragmentSearchBinding
 import com.tashuseyin.itunesapp.presentation.binding_adapter.BindingFragment
-import com.tashuseyin.itunesapp.presentation.search.adapter.MediaTypeAdapter
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchAdapter
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchLoadingStateAdapter
+import com.tashuseyin.itunesapp.presentation.search.adapter.WrapperTypeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener {
     private val searchViewModel: SearchViewModel by viewModels()
     private val adapter = SearchAdapter()
-    private val mediaTypeAdapter = MediaTypeAdapter()
+    private val wrapperTypeAdapter = WrapperTypeAdapter()
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchBinding::inflate
@@ -47,25 +48,34 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     }
 
     private fun filterSearchRequestApi() {
-        mediaTypeAdapter.onItemClickListener = { mediaType ->
-            searchViewModel.mediaType = mediaType.lowercase()
+        wrapperTypeAdapter.onItemClickListener = { wrapperType ->
+            when (wrapperType) {
+                "Application" -> {
+                    searchViewModel.wrapperType = Constant.PARAMS_APPLICATION
+                }
+                "Music" -> {
+                    searchViewModel.wrapperType = Constant.PARAMS_MUSIC
+                }
+                else -> {
+                    searchViewModel.wrapperType = wrapperType.lowercase()
+                }
+            }
+            checkIsSearched()
             if (searchViewModel.query.isNotBlank()) {
                 requestSearchApi()
-
             }
         }
     }
 
     private fun initMediaTypeAdapter() {
         val mediaTypeList = ArrayList<String>()
-        mediaTypeList.add(getString(R.string.all))
         mediaTypeList.add(getString(R.string.movie))
-        mediaTypeList.add(getString(R.string.podcast))
+        mediaTypeList.add(getString(R.string.book))
         mediaTypeList.add(getString(R.string.music))
-        mediaTypeList.add(getString(R.string.software))
+        mediaTypeList.add(getString(R.string.application))
 
-        mediaTypeAdapter.setData(mediaTypeList)
-        binding.recyclerViewFilter.adapter = mediaTypeAdapter
+        wrapperTypeAdapter.setData(mediaTypeList)
+        binding.recyclerViewFilter.adapter = wrapperTypeAdapter
     }
 
 
@@ -92,7 +102,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
                     (loadState.source.refresh as LoadState.Error).error.localizedMessage
             } else if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
                 errorText.isVisible = true
-                errorText.text = getString(R.string.not_found)
+                errorText.text = getString(R.string.not_found, searchViewModel.wrapperType)
                 emptyAnimation.isVisible = true
             } else {
                 errorText.isVisible = false
@@ -106,7 +116,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
             searchViewModel.isSearched.observe(viewLifecycleOwner) {
                 binding.apply {
                     errorText.isVisible = it
-                    errorText.text = "Please enter the movie you want to search."
+                    errorText.text = getString(R.string.search_message, searchViewModel.wrapperType)
                     searchAnimation.isVisible = it
                 }
             }

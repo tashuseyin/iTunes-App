@@ -11,13 +11,14 @@ object Constant {
     const val MAX_SIZE = 100
     const val QUERY_SEARCH = "term"
     const val QUERY_LIMIT = "limit"
-    const val QUERY_MEDIA_TYPE = "media"
+    const val QUERY_WRAPPER_TYPE = "entity"
     const val QUERY_OFFSET = "offset"
 
-    const val DEFAULT_MEDIA_TYPE = "all"
+
+    const val PARAMS_APPLICATION = "software"
+    const val PARAMS_MUSIC = "song"
+
+    const val DEFAULT_WRAPPER_TYPE = "movie"
     const val DEFAULT_LIMIT = 20
 
-    const val PREFERENCES_NAME = "itunesPreferences"
-    const val PREFERENCES_MEDIA_TYPE = "mediaType"
-    const val PREFERENCES_MEDIA_TYPE_ID = "mediaTypeId"
 }
