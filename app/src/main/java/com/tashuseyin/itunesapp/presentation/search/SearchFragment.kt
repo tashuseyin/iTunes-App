@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
@@ -27,17 +27,12 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener {
-    private val searchViewModel: SearchViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by activityViewModels()
     private val adapter = SearchAdapter()
     private val wrapperTypeAdapter = WrapperTypeAdapter()
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchBinding::inflate
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        searchViewModel.isSearched.value = true
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,7 +40,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         observeUI()
         setListener()
         initWrapperTypeAdapter()
-        checkIsSearched()
         filterSearchRequestApi()
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
@@ -78,7 +72,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
                     searchViewModel.wrapperType = wrapperType.lowercase()
                 }
             }
-            checkIsSearched()
             if (searchViewModel.query.isNotBlank()) {
                 requestSearchApi()
             }
@@ -129,24 +122,11 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         }
     }
 
-    private fun checkIsSearched() {
-        binding.apply {
-            searchViewModel.isSearched.observe(viewLifecycleOwner) {
-                binding.apply {
-                    errorText.isVisible = it
-                    errorText.text = getString(R.string.search_message, searchViewModel.wrapperType)
-                    searchAnimation.isVisible = it
-                }
-            }
-        }
-    }
-
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
             view?.let { hideKeyboard(view = it) }
             searchViewModel.query = query
-            searchViewModel.isSearched.value = false
             requestSearchApi()
             observeUI()
         }
