@@ -81,16 +81,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_name">
 
                 <View
-                    android:id="@+id/view3"
+                    android:id="@+id/country_view"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/view2"
+                    app:layout_constraintEnd_toStartOf="@+id/price_view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/country_title"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="16dp"
@@ -100,8 +100,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/view3"
-                    app:layout_constraintStart_toStartOf="@+id/view3"
+                    app:layout_constraintEnd_toEndOf="@+id/country_view"
+                    app:layout_constraintStart_toStartOf="@+id/country_view"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -112,22 +112,22 @@
                     android:textAlignment="center"
                     android:textColor="@color/medium_gray"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/textView"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="@+id/country_title"
+                    app:layout_constraintStart_toStartOf="@+id/country_title"
+                    app:layout_constraintTop_toBottomOf="@+id/country_title"
                     tools:text="USA" />
 
 
                 <View
-                    android:id="@+id/view2"
+                    android:id="@+id/price_view"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    app:layout_constraintEnd_toStartOf="@+id/view"
-                    app:layout_constraintStart_toEndOf="@+id/view3"
+                    app:layout_constraintEnd_toStartOf="@+id/year_view"
+                    app:layout_constraintStart_toEndOf="@+id/country_view"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/price_title"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="16dp"
@@ -136,8 +136,8 @@
                     android:text="@string/price"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/view2"
-                    app:layout_constraintStart_toStartOf="@+id/view2"
+                    app:layout_constraintEnd_toEndOf="@+id/price_view"
+                    app:layout_constraintStart_toStartOf="@+id/price_view"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -148,21 +148,21 @@
                     android:textAlignment="center"
                     android:textColor="@color/medium_gray"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/price_title"
+                    app:layout_constraintStart_toStartOf="@+id/price_title"
+                    app:layout_constraintTop_toBottomOf="@+id/price_title"
                     tools:text="100 USD" />
 
                 <View
-                    android:id="@+id/view"
+                    android:id="@+id/year_view"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/view2"
+                    app:layout_constraintStart_toEndOf="@+id/price_view"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/year_title"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="16dp"
@@ -171,8 +171,8 @@
                     android:text="@string/year"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/view"
-                    app:layout_constraintStart_toStartOf="@+id/view"
+                    app:layout_constraintEnd_toEndOf="@+id/year_view"
+                    app:layout_constraintStart_toStartOf="@+id/year_view"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -183,51 +183,61 @@
                     android:textAlignment="center"
                     android:textColor="@color/medium_gray"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/textView3"
-                    app:layout_constraintStart_toStartOf="@+id/textView3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintEnd_toEndOf="@+id/year_title"
+                    app:layout_constraintStart_toStartOf="@+id/year_title"
+                    app:layout_constraintTop_toBottomOf="@+id/year_title"
                     tools:text="04 October 2012" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:id="@+id/view4"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
-                android:background="@color/primary"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/description_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/view4"
-                app:layout_constraintEnd_toEndOf="@+id/view4"
-                app:layout_constraintStart_toStartOf="@+id/view4"
-                app:layout_constraintTop_toTopOf="@+id/view4" />
+                <View
+                    android:id="@+id/description_view"
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@color/primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/item_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:padding="5dp"
-                android:textColor="@color/medium_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/view4"
-                app:layout_constraintTop_toBottomOf="@+id/view4"
-                tools:text="@string/lorem" />
+                <TextView
+                    android:id="@+id/description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/description_view"
+                    app:layout_constraintEnd_toEndOf="@+id/description_view"
+                    app:layout_constraintStart_toStartOf="@+id/description_view"
+                    app:layout_constraintTop_toTopOf="@+id/description_view" />
+
+                <TextView
+                    android:id="@+id/item_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:padding="5dp"
+                    android:textColor="@color/medium_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/description_view"
+                    app:layout_constraintTop_toBottomOf="@+id/description_view"
+                    tools:text="@string/lorem" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <View
-                android:id="@+id/view5"
+                android:id="@+id/more_detail_view"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="4dp"
@@ -236,22 +246,23 @@
                 android:background="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_description" />
+                app:layout_constraintTop_toBottomOf="@id/description_layout" />
 
             <TextView
+                android:id="@+id/more_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/more_details"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/view5"
-                app:layout_constraintEnd_toEndOf="@+id/view5"
-                app:layout_constraintStart_toStartOf="@+id/view5"
-                app:layout_constraintTop_toTopOf="@+id/view5" />
+                app:layout_constraintBottom_toBottomOf="@+id/more_detail_view"
+                app:layout_constraintEnd_toEndOf="@+id/more_detail_view"
+                app:layout_constraintStart_toStartOf="@+id/more_detail_view"
+                app:layout_constraintTop_toTopOf="@+id/more_detail_view" />
 
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/artist_tile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -259,9 +270,9 @@
                 android:text="@string/artist_name"
                 android:textColor="@color/primary"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/view5"
-                app:layout_constraintStart_toStartOf="@+id/view5"
-                app:layout_constraintTop_toBottomOf="@+id/view5" />
+                app:layout_constraintEnd_toEndOf="@+id/more_detail_view"
+                app:layout_constraintStart_toStartOf="@+id/more_detail_view"
+                app:layout_constraintTop_toBottomOf="@+id/more_detail_view" />
 
             <TextView
                 android:id="@+id/item_artist"
@@ -269,9 +280,9 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textColor="@color/medium_gray"
-                app:layout_constraintEnd_toEndOf="@+id/textView5"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintEnd_toEndOf="@+id/artist_tile"
+                app:layout_constraintStart_toStartOf="@+id/artist_tile"
+                app:layout_constraintTop_toBottomOf="@+id/artist_tile"
                 tools:text="Robert Downey Jr., Chris Evans, Scarlett Johansson" />
 
             <View
@@ -285,7 +296,7 @@
 
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/genres_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -303,9 +314,9 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textColor="@color/medium_gray"
-                app:layout_constraintEnd_toEndOf="@+id/textView6"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="@+id/genres_title"
+                app:layout_constraintStart_toStartOf="@+id/genres_title"
+                app:layout_constraintTop_toBottomOf="@+id/genres_title"
                 tools:text="English, Russian, Hindi" />
 
             <View

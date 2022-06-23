@@ -6,6 +6,7 @@ object Constant {
     const val SEARCH_URL = "search"
     const val DETAIL_URL = "lookup"
 
+
     const val STARTING_PAGE_INDEX = 0
 
     const val PAGE_SIZE = 20
@@ -23,7 +24,7 @@ object Constant {
 
     const val DEFAULT_WRAPPER_TYPE = "movie"
     const val DEFAULT_LIMIT = 20
-
+    const val DEFAULT_COUNTRY = "USA"
     const val PARAM_SHARED_MODEL = "sharedModel"
 
 }

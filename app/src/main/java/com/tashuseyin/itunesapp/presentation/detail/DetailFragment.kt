@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.tashuseyin.itunesapp.common.Constant
 import com.tashuseyin.itunesapp.common.extension.loadImageView
 import com.tashuseyin.itunesapp.common.extension.placeholderProgressBar
 import com.tashuseyin.itunesapp.databinding.FragmentDetailBinding
@@ -46,8 +47,8 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
 
                         itemYear.text = item.releaseDate
                         itemName.text = item.trackName ?: item.collectionName
-                        itemCountry.text = item.country
-                        val price = item.trackPrice.toString() + item.currency
+                        itemCountry.text = item.country ?: Constant.DEFAULT_COUNTRY
+                        val price = (item.trackPrice ?: 0.0).toString() + item.currency
                         itemPrice.text = price
 
                         itemDescription.text = item.longDescription ?: item.description
