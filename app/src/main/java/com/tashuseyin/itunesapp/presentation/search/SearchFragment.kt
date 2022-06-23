@@ -35,6 +35,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         observeUI()
         initAdapter()
         setListener()

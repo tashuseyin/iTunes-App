@@ -54,7 +54,7 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
                         itemDescription.text = item.longDescription ?: item.description
 
                         itemArtist.text = item.artistName
-                        itemGenres.text = item.primaryGenreName
+                        itemGenres.text = item.genres.toString()
                     }
 
                 }
