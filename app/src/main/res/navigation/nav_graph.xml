@@ -20,8 +20,7 @@
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
-            android:name="id"
-            app:argType="string"
-            android:defaultValue="0" />
+            android:name="sharedModel"
+            app:argType="com.tashuseyin.itunesapp.domain.model.SharedModelDetail" />
     </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.tashuseyin.itunesapp.data.repository
+package com.tashuseyin.itunesapp.domain.repository
 
 import androidx.paging.PagingData
 import com.tashuseyin.itunesapp.data.remote.dto.BaseResultDto

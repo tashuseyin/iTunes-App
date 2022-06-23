@@ -9,24 +9,17 @@ import com.tashuseyin.itunesapp.domain.model.SearchItem
 class SearchViewHolder(private val binding: SearchItemRowBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(searchItem: SearchItem, onItemClickListener: ((String) -> Unit)? = null) {
+    fun bind(searchItem: SearchItem, onItemClickListener: ((SearchItem) -> Unit)? = null) {
         binding.apply {
             searchItemImage.loadImageView(
                 searchItem.artworkUrl100,
                 placeholderProgressBar(searchItemImage.context)
             )
-            if (searchItem.trackName!!.isNotBlank()) {
-                searchItemTitle.text = searchItem.trackName
-            } else {
-                searchItemTitle.text = searchItem.collectionName
-            }
-
+            searchItemTitle.text = searchItem.trackName ?: searchItem.collectionName
             searchItemWrapperType.text = searchItem.wrapperType
 
-
             searchItemConstraint.setOnClickListener {
-                val id = searchItem.trackId ?: searchItem.collectionId
-                onItemClickListener?.invoke(id.toString())
+                onItemClickListener?.invoke(searchItem)
             }
         }
 

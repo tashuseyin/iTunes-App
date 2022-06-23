@@ -8,6 +8,7 @@ import com.tashuseyin.itunesapp.data.paging.ITunesPagingSource
 import com.tashuseyin.itunesapp.data.remote.ITunesApiService
 import com.tashuseyin.itunesapp.data.remote.dto.BaseResultDto
 import com.tashuseyin.itunesapp.domain.model.SearchItem
+import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

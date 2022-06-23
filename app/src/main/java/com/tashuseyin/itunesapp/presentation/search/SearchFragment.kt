@@ -15,6 +15,7 @@ import com.tashuseyin.itunesapp.R
 import com.tashuseyin.itunesapp.common.Constant
 import com.tashuseyin.itunesapp.common.extension.hideKeyboard
 import com.tashuseyin.itunesapp.databinding.FragmentSearchBinding
+import com.tashuseyin.itunesapp.domain.model.SharedModelDetail
 import com.tashuseyin.itunesapp.presentation.binding_adapter.BindingFragment
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchAdapter
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchLoadingStateAdapter
@@ -40,6 +41,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeUI()
         setListener()
         initWrapperTypeAdapter()
         checkIsSearched()
@@ -49,10 +52,14 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     }
 
     private fun setListener() {
-        adapter.onItemClickListener = {
+        adapter.onItemClickListener = { searchItem ->
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToDetailFragment(
-                    it
+                    SharedModelDetail(
+                        trackId = searchItem.trackId.toString(),
+                        collectionId = searchItem.collectionId.toString(),
+                        wrapperType = searchViewModel.wrapperType
+                    )
                 )
             )
         }

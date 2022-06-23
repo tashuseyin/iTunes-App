@@ -1,9 +1,10 @@
 package com.tashuseyin.itunesapp.presentation.detail
 
-import com.tashuseyin.itunesapp.data.remote.dto.BaseResultItemDto
+import com.tashuseyin.itunesapp.domain.model.SearchItem
 
 data class DetailState(
-    val isLoading: Boolean = true,
-    val detailItem: BaseResultItemDto? = null,
+    val isLoading: Boolean = false,
+    val detailItem: SearchItem? = null,
+    val isScrollView : Boolean = false,
     val error: String = ""
 )

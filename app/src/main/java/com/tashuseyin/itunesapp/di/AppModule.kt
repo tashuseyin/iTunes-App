@@ -3,7 +3,7 @@ package com.tashuseyin.itunesapp.di
 import com.tashuseyin.itunesapp.common.Constant
 import com.tashuseyin.itunesapp.data.remote.ITunesApiService
 import com.tashuseyin.itunesapp.data.repository.ITunesRepositoryImpl
-import com.tashuseyin.itunesapp.data.repository.ITunesRepository
+import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

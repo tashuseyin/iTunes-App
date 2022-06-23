@@ -19,8 +19,11 @@ object Constant {
 
     const val PARAMS_APPLICATION = "software"
     const val PARAMS_MUSIC = "song"
+    const val PARAMS_AUDIOBOOK = "audiobook"
 
     const val DEFAULT_WRAPPER_TYPE = "movie"
     const val DEFAULT_LIMIT = 20
+
+    const val PARAM_SHARED_MODEL = "sharedModel"
 
 }

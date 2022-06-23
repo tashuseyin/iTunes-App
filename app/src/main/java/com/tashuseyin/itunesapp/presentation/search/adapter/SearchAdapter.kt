@@ -8,7 +8,7 @@ import com.tashuseyin.itunesapp.databinding.SearchItemRowBinding
 import com.tashuseyin.itunesapp.domain.model.SearchItem
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchViewHolder>(ITunesDifferCallback()) {
-    var onItemClickListener: ((String) -> Unit)? = null
+    var onItemClickListener: ((SearchItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val binding =

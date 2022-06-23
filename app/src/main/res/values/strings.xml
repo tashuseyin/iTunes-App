@@ -13,4 +13,12 @@
     <string name="retry">Retry</string>
     <string name="not_found">The %1$s you are looking for cannot be found.</string>
     <string name="search_message">Please enter the %1$s you want to search.</string>
+    <string name="country">Country</string>
+    <string name="price">Price</string>
+    <string name="year">Year</string>
+    <string name="description">Description</string>
+    <string name="lorem">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</string>
+    <string name="more_details">More Details</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="genres">Genres</string>
 </resources>
