@@ -19,7 +19,6 @@ import com.tashuseyin.itunesapp.domain.model.SharedModelDetail
 import com.tashuseyin.itunesapp.presentation.binding_adapter.BindingFragment
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchAdapter
 import com.tashuseyin.itunesapp.presentation.search.adapter.SearchLoadingStateAdapter
-import com.tashuseyin.itunesapp.presentation.search.adapter.WrapperTypeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -29,7 +28,6 @@ import kotlinx.coroutines.launch
 class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener {
     private val searchViewModel: SearchViewModel by activityViewModels()
     private val adapter = SearchAdapter()
-    private val wrapperTypeAdapter = WrapperTypeAdapter()
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchBinding::inflate
@@ -38,9 +36,9 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         super.onViewCreated(view, savedInstanceState)
 
         observeUI()
+        initAdapter()
         setListener()
-        initWrapperTypeAdapter()
-        filterSearchRequestApi()
+        filterChip()
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
     }
@@ -59,36 +57,45 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         }
     }
 
-    private fun filterSearchRequestApi() {
-        wrapperTypeAdapter.onItemClickListener = { wrapperType ->
-            when (wrapperType) {
-                "Application" -> {
-                    searchViewModel.wrapperType = Constant.PARAMS_APPLICATION
-                }
-                "Music" -> {
-                    searchViewModel.wrapperType = Constant.PARAMS_MUSIC
-                }
-                else -> {
-                    searchViewModel.wrapperType = wrapperType.lowercase()
-                }
+    private fun filterChip() {
+        binding.apply {
+            appChip.setOnClickListener {
+                searchViewModel.wrapperType = Constant.PARAMS_APPLICATION
+                filterRequest()
             }
-            if (searchViewModel.query.isNotBlank()) {
-                requestSearchApi()
+            movieChip.setOnClickListener {
+                searchViewModel.wrapperType = Constant.PARAMS_MOVIE
+                filterRequest()
+            }
+            musicChip.setOnClickListener {
+                searchViewModel.wrapperType = Constant.PARAMS_MUSIC
+                filterRequest()
+            }
+            audiobookChip.setOnClickListener {
+                searchViewModel.wrapperType = Constant.PARAMS_AUDIOBOOK
+                filterRequest()
             }
         }
     }
 
-    private fun initWrapperTypeAdapter() {
-        val mediaTypeList = ArrayList<String>()
-        mediaTypeList.add(getString(R.string.movie))
-        mediaTypeList.add(getString(R.string.book))
-        mediaTypeList.add(getString(R.string.music))
-        mediaTypeList.add(getString(R.string.application))
-
-        wrapperTypeAdapter.setData(mediaTypeList)
-        binding.recyclerViewFilter.adapter = wrapperTypeAdapter
+    private fun filterRequest() {
+        if (searchViewModel.query.isNotBlank()) {
+            searchViewModel.getSearchApi()
+            initAdapter()
+        }
     }
 
+
+    private fun initAdapter() {
+        lifecycleScope.launch {
+            if (searchViewModel.query.isNotBlank()) {
+                searchViewModel.searchList.collect {
+                    adapter.submitData(it)
+                    binding.recyclerView.adapter = adapter
+                }
+            }
+        }
+    }
 
     private fun observeUI() {
         binding.recyclerView.adapter = adapter.withLoadStateFooter(
@@ -127,22 +134,12 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         if (query != null) {
             view?.let { hideKeyboard(view = it) }
             searchViewModel.query = query
-            requestSearchApi()
+            searchViewModel.getSearchApi()
             observeUI()
+            initAdapter()
         }
         return true
     }
 
     override fun onQueryTextChange(p0: String?) = true
-
-
-    private fun requestSearchApi() {
-        lifecycleScope.launch {
-            searchViewModel.getSearchApi()
-            searchViewModel.searchList.collect {
-                adapter.submitData(it)
-                binding.recyclerView.adapter = adapter
-            }
-        }
-    }
 }
