@@ -19,7 +19,7 @@ class ITunesRepositoryImpl @Inject constructor(
     override fun getSearchApi(queries: Map<String, String>): Flow<PagingData<SearchItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = Constant.PAGE_SIZE,
+                pageSize = Constant.STARTING_PAGE_INDEX,
                 maxSize = Constant.MAX_SIZE,
                 enablePlaceholders = false
             ),

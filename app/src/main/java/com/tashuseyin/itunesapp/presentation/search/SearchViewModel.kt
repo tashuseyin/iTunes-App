@@ -29,9 +29,10 @@ class SearchViewModel @Inject constructor(
 
     fun getSearchApi() {
         viewModelScope.launch {
-            repository.getSearchApi(applyQueries()).cachedIn(viewModelScope).collectLatest {
-                _searchList.value = it
-            }
+            repository.getSearchApi(applyQueries()).cachedIn(viewModelScope)
+                .collectLatest {
+                    _searchList.value = it
+                }
         }
     }
 

@@ -13,24 +13,25 @@ class ITunesPagingSource(
 ) : PagingSource<Int, SearchItem>() {
 
     override fun getRefreshKey(state: PagingState<Int, SearchItem>): Int? {
-        return state.anchorPosition
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> {
         val currentPage = params.key ?: Constant.STARTING_PAGE_INDEX
-        val offset = if (params.key != null) ((currentPage - 1) * Constant.PAGE_SIZE) + 1 else Constant.STARTING_PAGE_INDEX
         return try {
             val response =
                 apiService.getSearchApi(
-                    pageNumber = offset - 1,
-                    pageSize = params.loadSize,
+                    pageNumber = currentPage - 1,
                     queries = queries
                 )
             val searchList = response.results
             LoadResult.Page(
                 data = searchList!!.map { it.toDomain() },
                 prevKey = if (currentPage == Constant.STARTING_PAGE_INDEX) null else currentPage - 1,
-                nextKey = if (searchList.isEmpty()) null else currentPage + (params.loadSize / Constant.PAGE_SIZE)
+                nextKey = if (searchList.isEmpty()) null else currentPage + Constant.PAGE_SIZE
             )
 
         } catch (e: Exception) {

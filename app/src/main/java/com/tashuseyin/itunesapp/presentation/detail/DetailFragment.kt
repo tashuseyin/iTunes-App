@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.tashuseyin.itunesapp.common.Constant
+import com.tashuseyin.itunesapp.common.extension.dateToString
 import com.tashuseyin.itunesapp.common.extension.loadImageView
 import com.tashuseyin.itunesapp.common.extension.placeholderProgressBar
 import com.tashuseyin.itunesapp.databinding.FragmentDetailBinding
@@ -23,7 +24,6 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentDetailBinding::inflate
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,8 +44,7 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
                             item.artworkUrl100 ?: item.artworkUrl600,
                             placeholderProgressBar(requireContext())
                         )
-
-                        itemYear.text = item.releaseDate
+                        itemYear.text = dateToString(item.releaseDate!!)
                         itemName.text = item.trackName ?: item.collectionName
                         itemCountry.text = item.country ?: Constant.DEFAULT_COUNTRY
                         val price = (item.trackPrice ?: 0.0).toString() + item.currency
@@ -54,12 +53,11 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
                         itemDescription.text = item.longDescription ?: item.description
 
                         itemArtist.text = item.artistName
-                        itemGenres.text = item.genres.toString()
+                        itemGenres.text = item.primaryGenreName
                     }
 
                 }
             }
         }
     }
-
 }
