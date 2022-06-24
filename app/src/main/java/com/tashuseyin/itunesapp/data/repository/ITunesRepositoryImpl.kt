@@ -20,7 +20,6 @@ class ITunesRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = Constant.STARTING_PAGE_INDEX,
-                maxSize = Constant.MAX_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { ITunesPagingSource(apiService, queries) }

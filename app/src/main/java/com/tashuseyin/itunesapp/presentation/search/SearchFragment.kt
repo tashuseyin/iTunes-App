@@ -81,8 +81,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     private fun filterRequest() {
         if (searchViewModel.query.isNotBlank()) {
             searchViewModel.getSearchApi()
-            observeUI()
             initAdapter()
+            observeUI()
         }
     }
 
@@ -137,6 +137,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
             searchViewModel.query = query
             searchViewModel.getSearchApi()
             initAdapter()
+            observeUI()
         }
         return true
     }

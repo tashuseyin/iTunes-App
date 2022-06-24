@@ -47,7 +47,7 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
                         itemYear.text = dateToString(item.releaseDate!!)
                         itemName.text = item.trackName ?: item.collectionName
                         itemCountry.text = item.country ?: Constant.DEFAULT_COUNTRY
-                        val price = (item.trackPrice ?: 0.0).toString() + "/t" + item.currency
+                        val price = (item.trackPrice ?: 0.0).toString() + item.currency
                         itemPrice.text = price
 
                         itemDescription.text = Jsoup.parse(item.longDescription).text()
