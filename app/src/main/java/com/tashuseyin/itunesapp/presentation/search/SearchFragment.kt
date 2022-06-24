@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener {
-    private val searchViewModel: SearchViewModel by activityViewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
     private val adapter = SearchAdapter()
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -34,6 +34,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observeUI()
         initAdapter()
         setListener()
@@ -81,6 +82,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         if (searchViewModel.query.isNotBlank()) {
             searchViewModel.getSearchApi()
             initAdapter()
+            observeUI()
         }
     }
 
@@ -101,7 +103,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
             footer = SearchLoadingStateAdapter { adapter.retry() }
         )
         lifecycleScope.launch {
-            adapter.addLoadStateListener { loadState ->
+            adapter.loadStateFlow.collect { loadState ->
                 binding.apply {
                     recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
                     progressBar.isVisible = loadState.source.refresh is LoadState.Loading

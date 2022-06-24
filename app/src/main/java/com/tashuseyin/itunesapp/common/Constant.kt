@@ -9,7 +9,6 @@ object Constant {
 
     const val STARTING_PAGE_INDEX = 1
 
-    const val PAGE_SIZE = 20
     const val MAX_SIZE = 100
     const val QUERY_SEARCH = "term"
     const val QUERY_LIMIT = "limit"

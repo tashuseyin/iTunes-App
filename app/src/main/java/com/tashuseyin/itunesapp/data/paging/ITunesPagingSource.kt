@@ -20,18 +20,21 @@ class ITunesPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> {
-        val currentPage = params.key ?: Constant.STARTING_PAGE_INDEX
+        val position = params.key ?: Constant.STARTING_PAGE_INDEX
         return try {
             val response =
                 apiService.getSearchApi(
-                    pageNumber = currentPage - 1,
+                    pageNumber = position,
+                    pageSize = Constant.DEFAULT_LIMIT,
                     queries = queries
                 )
             val searchList = response.results
+            val newKey = (response.resultCount ?: 0) + position
+            val nextKey: Int? = if (position == newKey) null else newKey
             LoadResult.Page(
                 data = searchList!!.map { it.toDomain() },
-                prevKey = if (currentPage == Constant.STARTING_PAGE_INDEX) null else currentPage - 1,
-                nextKey = if (searchList.isEmpty()) null else currentPage + Constant.PAGE_SIZE
+                prevKey = null,
+                nextKey = nextKey
             )
 
         } catch (e: Exception) {

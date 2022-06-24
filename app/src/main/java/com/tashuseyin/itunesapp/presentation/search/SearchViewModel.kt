@@ -8,6 +8,7 @@ import com.tashuseyin.itunesapp.common.Constant
 import com.tashuseyin.itunesapp.domain.model.SearchItem
 import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -17,6 +18,8 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val repository: ITunesRepository
 ) : ViewModel() {
+
+    private var job: Job? = null
 
     var query: String = ""
     var wrapperType: String = Constant.DEFAULT_WRAPPER_TYPE
@@ -28,7 +31,8 @@ class SearchViewModel @Inject constructor(
 
 
     fun getSearchApi() {
-        viewModelScope.launch {
+        job?.cancel()
+        job = viewModelScope.launch {
             repository.getSearchApi(applyQueries()).cachedIn(viewModelScope)
                 .collectLatest {
                     _searchList.value = it
