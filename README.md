@@ -5,5 +5,21 @@ iTunes App is a small demo application based on modern Android application tech-
 </p>
 
 <p align="center">
-<img src="/images/news.png"/>
+<img src="/image/itunes_app_image.jpg"/>
 </p>
+
+
+## Tech Stack & Open-Source Library
+- Kotlin
+- Flow
+- State Handle
+- Splash Api
+- [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs network data.
+- [Glide](https://github.com/bumptech/glide)
+- Jetpack
+  - Lifecycle - dispose of observing data when lifecycle state changes.
+  - ViewModel - UI related data holder, lifecycle aware.
+  - Room - construct a database using the abstract layer.
+ - Architecture
+  -  MVVM Architecture (View - ViewModel - Model)
+  -  Repository pattern
