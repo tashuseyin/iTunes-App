@@ -5,7 +5,7 @@ iTunes App is a small demo application based on modern Android application tech-
 </p>
 
 <p align="center">
-<img src="/images/itunes_app_images.png"/>
+<img src="/image/itunes_app_images.png"/>
 </p>
 
 
