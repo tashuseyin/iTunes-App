@@ -81,16 +81,16 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     private fun filterRequest() {
         if (searchViewModel.query.isNotBlank()) {
             searchViewModel.getSearchApi()
-            initAdapter()
             observeUI()
+            initAdapter()
         }
     }
 
 
     private fun initAdapter() {
-        lifecycleScope.launch {
-            if (searchViewModel.query.isNotBlank()) {
-                searchViewModel.searchList.collect {
+        if (searchViewModel.query.isNotBlank()) {
+            searchViewModel.searchList.observe(viewLifecycleOwner) {
+                lifecycleScope.launch {
                     adapter.submitData(it)
                     binding.recyclerView.adapter = adapter
                 }
@@ -136,7 +136,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
             view?.let { hideKeyboard(view = it) }
             searchViewModel.query = query
             searchViewModel.getSearchApi()
-            observeUI()
             initAdapter()
         }
         return true

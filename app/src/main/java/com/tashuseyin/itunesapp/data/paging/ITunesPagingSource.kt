@@ -24,17 +24,15 @@ class ITunesPagingSource(
         return try {
             val response =
                 apiService.getSearchApi(
-                    pageNumber = position,
+                    pageNumber = position - 1,
                     pageSize = Constant.DEFAULT_LIMIT,
                     queries = queries
                 )
             val searchList = response.results
-            val newKey = (response.resultCount ?: 0) + position
-            val nextKey: Int? = if (position == newKey) null else newKey
             LoadResult.Page(
                 data = searchList!!.map { it.toDomain() },
-                prevKey = null,
-                nextKey = nextKey
+                prevKey = if (position == Constant.STARTING_PAGE_INDEX) null else position - Constant.DEFAULT_LIMIT,
+                nextKey = if (searchList.isEmpty()) null else (position) + Constant.DEFAULT_LIMIT
             )
 
         } catch (e: Exception) {

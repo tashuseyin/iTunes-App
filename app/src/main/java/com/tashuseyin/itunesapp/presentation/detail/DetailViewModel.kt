@@ -2,6 +2,7 @@ package com.tashuseyin.itunesapp.presentation.detail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.tashuseyin.itunesapp.common.Constant
@@ -10,6 +11,7 @@ import com.tashuseyin.itunesapp.data.toDomain
 import com.tashuseyin.itunesapp.domain.model.SharedModelDetail
 import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,8 +24,10 @@ class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(application) {
 
-    private val _state: MutableStateFlow<DetailState> = MutableStateFlow(DetailState())
-    val state: StateFlow<DetailState> = _state
+    private var job: Job? = null
+
+    private val _state: MutableLiveData<DetailState> = MutableLiveData(DetailState())
+    val state get() = _state
 
     init {
         savedStateHandle.get<SharedModelDetail>(Constant.PARAM_SHARED_MODEL)?.let { it ->
@@ -40,7 +44,8 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun getDetailApi(id: String) {
-        viewModelScope.launch {
+        job?.cancel()
+        job = viewModelScope.launch {
             if (NetworkListener.hasInternetConnection(getApplication())) {
                 _state.value = DetailState(isLoading = true)
                 try {

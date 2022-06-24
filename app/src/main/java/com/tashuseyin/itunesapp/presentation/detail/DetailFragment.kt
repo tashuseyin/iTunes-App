@@ -14,8 +14,8 @@ import com.tashuseyin.itunesapp.common.extension.placeholderProgressBar
 import com.tashuseyin.itunesapp.databinding.FragmentDetailBinding
 import com.tashuseyin.itunesapp.presentation.binding_adapter.BindingFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.jsoup.Jsoup
 
 
 @AndroidEntryPoint
@@ -33,7 +33,7 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
     private fun observeUI() {
         binding.apply {
             lifecycleScope.launch {
-                detailViewModel.state.collect { state ->
+                detailViewModel.state.observe(viewLifecycleOwner) { state ->
                     progressBar.isVisible = state.isLoading
                     scrollView.isVisible = state.isScrollView
                     if (state.error.isNotBlank()) {
@@ -47,11 +47,11 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
                         itemYear.text = dateToString(item.releaseDate!!)
                         itemName.text = item.trackName ?: item.collectionName
                         itemCountry.text = item.country ?: Constant.DEFAULT_COUNTRY
-                        val price = (item.trackPrice ?: 0.0).toString() + item.currency
+                        val price = (item.trackPrice ?: 0.0).toString() + "/t" + item.currency
                         itemPrice.text = price
 
-                        itemDescription.text = item.longDescription ?: item.description
-
+                        itemDescription.text = Jsoup.parse(item.longDescription).text()
+                            ?: Jsoup.parse(item.description).text()
                         itemArtist.text = item.artistName
                         itemGenres.text = item.primaryGenreName
                     }

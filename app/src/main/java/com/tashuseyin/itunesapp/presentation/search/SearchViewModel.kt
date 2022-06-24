@@ -1,5 +1,6 @@
 package com.tashuseyin.itunesapp.presentation.search
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -9,8 +10,8 @@ import com.tashuseyin.itunesapp.domain.model.SearchItem
 import com.tashuseyin.itunesapp.domain.repository.ITunesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,15 +26,15 @@ class SearchViewModel @Inject constructor(
     var wrapperType: String = Constant.DEFAULT_WRAPPER_TYPE
 
 
-    private val _searchList: MutableStateFlow<PagingData<SearchItem>> =
-        MutableStateFlow(PagingData.empty())
+    private val _searchList: MutableLiveData<PagingData<SearchItem>> =
+        MutableLiveData(PagingData.empty())
     val searchList = _searchList
 
 
     fun getSearchApi() {
         job?.cancel()
         job = viewModelScope.launch {
-            repository.getSearchApi(applyQueries()).cachedIn(viewModelScope)
+            repository.getSearchApi(applyQueries()).cachedIn(viewModelScope).distinctUntilChanged()
                 .collectLatest {
                     _searchList.value = it
                 }
