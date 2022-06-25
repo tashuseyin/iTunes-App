@@ -81,19 +81,14 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     private fun filterRequest() {
         if (searchViewModel.query.isNotBlank()) {
             searchViewModel.getSearchApi()
-            initAdapter()
-            observeUI()
         }
     }
 
 
     private fun initAdapter() {
-        if (searchViewModel.query.isNotBlank()) {
-            searchViewModel.searchList.observe(viewLifecycleOwner) {
-                lifecycleScope.launch {
-                    adapter.submitData(it)
-                    binding.recyclerView.adapter = adapter
-                }
+        searchViewModel.searchList.observe(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                adapter.submitData(it)
             }
         }
     }
@@ -119,7 +114,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
                 errorText.isVisible = loadState.source.refresh is LoadState.Error
                 errorText.text =
                     (loadState.source.refresh as LoadState.Error).error.localizedMessage
-            } else if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+            } else if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && searchViewModel.query.isNotBlank() && adapter.itemCount < 1) {
                 errorText.isVisible = true
                 errorText.text = getString(R.string.not_found, searchViewModel.wrapperType)
                 emptyAnimation.isVisible = true
@@ -136,8 +131,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
             view?.let { hideKeyboard(view = it) }
             searchViewModel.query = query
             searchViewModel.getSearchApi()
-            initAdapter()
-            observeUI()
         }
         return true
     }
