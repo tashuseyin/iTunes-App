@@ -1,5 +1,6 @@
 package com.tashuseyin.itunesapp.presentation.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -85,9 +86,11 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initAdapter() {
         searchViewModel.searchList.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
+                adapter.notifyDataSetChanged()
                 adapter.submitData(it)
             }
         }

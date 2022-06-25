@@ -20,9 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
+        android:textAlignment="center"
         android:textColor="@color/primary"
         android:textSize="16sp"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -236,98 +236,75 @@
                     tools:text="@string/lorem" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            <View
-                android:id="@+id/more_detail_view"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="4dp"
-                android:background="@color/primary"
+            <LinearLayout
+                android:id="@+id/artist_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/description_layout">
 
-            <TextView
-                android:id="@+id/more_detail_title"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/artist_tile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="10dp"
+                    android:text="@string/artist_name"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/item_artist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/medium_gray"
+                    tools:text="Robert Downey Jr., Chris Evans, Scarlett Johansson" />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/genres_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/more_details"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/more_detail_view"
-                app:layout_constraintEnd_toEndOf="@+id/more_detail_view"
-                app:layout_constraintStart_toStartOf="@+id/more_detail_view"
-                app:layout_constraintTop_toTopOf="@+id/more_detail_view" />
+                android:layout_marginTop="4dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/artist_layout">
 
+                <TextView
+                    android:id="@+id/genres_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="10dp"
+                    android:text="@string/genres"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/artist_tile"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:text="@string/artist_name"
-                android:textColor="@color/primary"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/more_detail_view"
-                app:layout_constraintStart_toStartOf="@+id/more_detail_view"
-                app:layout_constraintTop_toBottomOf="@+id/more_detail_view" />
+                <TextView
+                    android:id="@+id/item_genres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/medium_gray"
+                    tools:text="English, Russian, Hindi" />
 
-            <TextView
-                android:id="@+id/item_artist"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textColor="@color/medium_gray"
-                app:layout_constraintEnd_toEndOf="@+id/artist_tile"
-                app:layout_constraintStart_toStartOf="@+id/artist_tile"
-                app:layout_constraintTop_toBottomOf="@+id/artist_tile"
-                tools:text="Robert Downey Jr., Chris Evans, Scarlett Johansson" />
-
-            <View
-                android:id="@+id/line1"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:background="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/item_artist"
-                app:layout_constraintEnd_toEndOf="@+id/item_artist"
-                app:layout_constraintStart_toStartOf="@+id/item_artist" />
-
-
-            <TextView
-                android:id="@+id/genres_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:text="@string/genres"
-                android:textColor="@color/primary"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/line1"
-                app:layout_constraintStart_toStartOf="@+id/line1"
-                app:layout_constraintTop_toBottomOf="@+id/line1" />
-
-            <TextView
-                android:id="@+id/item_genres"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textColor="@color/medium_gray"
-                app:layout_constraintEnd_toEndOf="@+id/genres_title"
-                app:layout_constraintStart_toStartOf="@+id/genres_title"
-                app:layout_constraintTop_toBottomOf="@+id/genres_title"
-                tools:text="English, Russian, Hindi" />
-
-            <View
-                android:id="@+id/line2"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:background="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/item_genres"
-                app:layout_constraintStart_toStartOf="@+id/item_genres"
-                app:layout_constraintTop_toBottomOf="@+id/item_genres" />
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/black" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

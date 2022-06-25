@@ -47,13 +47,29 @@ class DetailFragment : BindingFragment<FragmentDetailBinding>() {
                         itemYear.text = dateToString(item.releaseDate!!)
                         itemName.text = item.trackName ?: item.collectionName
                         itemCountry.text = item.country ?: Constant.DEFAULT_COUNTRY
-                        val price = (item.trackPrice ?: 0.0).toString() + item.currency
-                        itemPrice.text = price
+                        val price =
+                            item.trackPrice ?: item.collectionPrice ?: Constant.DEFAULT_PRICE
+                        val priceText = "$price \t ${item.currency}"
+                        itemPrice.text = priceText
 
-                        itemDescription.text = Jsoup.parse(item.longDescription).text()
-                            ?: Jsoup.parse(item.description).text()
-                        itemArtist.text = item.artistName
-                        itemGenres.text = item.primaryGenreName
+                        val description = item.longDescription ?: item.description
+                        if (description.isNullOrBlank()) {
+                            descriptionLayout.visibility = View.GONE
+                        } else {
+                            itemDescription.text = Jsoup.parse(description).text()
+                        }
+
+                        if (item.artistName.isNullOrBlank()) {
+                            artistLayout.visibility = View.GONE
+                        } else {
+                            itemArtist.text = item.artistName
+                        }
+
+                        if (item.primaryGenreName.isNullOrBlank()) {
+                            genresLayout.visibility = View.GONE
+                        } else {
+                            itemGenres.text = item.primaryGenreName
+                        }
                     }
 
                 }

@@ -25,6 +25,7 @@ object Constant {
     const val DEFAULT_WRAPPER_TYPE = "movie"
     const val DEFAULT_LIMIT = 20
     const val DEFAULT_COUNTRY = "USA"
+    const val DEFAULT_PRICE ="0.0"
     const val PARAM_SHARED_MODEL = "sharedModel"
 
 }
