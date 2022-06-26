@@ -14,6 +14,7 @@ iTunes App is a small demo application based on modern Android application tech-
 - Flow
 - State Handle
 - Splash Api
+- Paging3
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs network data.
 - [Glide](https://github.com/bumptech/glide)
 - Jetpack
